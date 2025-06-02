@@ -1,0 +1,23 @@
+---
+import NavBar from "./NavBar.astro";
+import { Image } from "astro:assets";
+import logo from "../assets/icons/logo.svg";
+import bus from "../assets/videos/bus.mp4";
+---
+
+<header>
+  <div
+    class="z-20 w-full bg-white py-0 flex justify-between items-center shadow-2xl px-10 text-black"
+  >
+    <div class="w-20 h-20 py-2">
+      <Image src={logo} alt={"logo"} class={"w-full h-full"} />
+    </div>
+    <NavBar />
+  </div>
+  <div class="relative top-0 bottom-0 w-full h-[500px] overflow-hidden z-10">
+    <video width="100%" height="100%" class="absolute w-auto h-auto min-w-full min-h-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" autoplay loop muted>
+      <source src={bus} type="video/mp4" />
+    </video>
+    <div class="top-0 bg-gray-800 opacity-75 w-screen h-[500px]"></div>
+  </div>
+</header>

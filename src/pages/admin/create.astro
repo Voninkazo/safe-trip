@@ -1,0 +1,23 @@
+---
+import AdminPanel from "../../components/AdminSideBar";
+import AddBusForm from "../../components/AdminForm";
+import AdminLayout from "../../layout/AdminLayout.astro";
+import AccessDenied from "../../components/AccessDenied.astro";
+import type { User } from "../../utils/type";
+const user: User | null = Astro.locals.user;
+---
+
+<AdminLayout title="Create Bus">
+  {
+    user !== null ? (
+      <>
+        <AdminPanel client:only="react" user={user} />
+        <div class="w-full basis-[78%] px-10">
+          <AddBusForm client:only="react" />
+        </div>
+      </>
+    ) : (
+      <AccessDenied />
+    )
+  }
+</AdminLayout>

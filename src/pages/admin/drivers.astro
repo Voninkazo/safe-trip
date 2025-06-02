@@ -1,0 +1,31 @@
+---
+import { GET } from "../api/index";
+import AdminLayout from "../../layout/AdminLayout.astro";
+import AdminPanel from "../../components/AdminSideBar";
+import type { BusType, User } from "../../utils/type";
+import DriversList from "../../components/DriversList";
+import AccessDenied from "../../components/AccessDenied.astro";
+const user: User | null = Astro.locals.user;
+const response = await GET(Astro);
+const buses: BusType[] = await response.json();
+const userBuses = buses.filter(
+  (bus) => bus.cooperative.name === user?.cooperativeName
+);
+---
+
+<AdminLayout title="Drivers">
+  {
+    user !== null ? (
+      <>
+        <AdminPanel client:only="react" user={user} />
+        <DriversList
+          client:only="react"
+          userBuses={userBuses}
+          cooperativeName={user?.cooperativeName}
+        />
+      </>
+    ) : (
+      <AccessDenied />
+    )
+  }
+</AdminLayout>

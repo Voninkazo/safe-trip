@@ -1,0 +1,24 @@
+---
+import "@fontsource/roboto";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <title>HappyTravel</title>
+  </head>
+  <body class="relative font-sans">
+    <Header />
+    <main class="px-5 max-w-screen-2xl mx-auto xl:px-0">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

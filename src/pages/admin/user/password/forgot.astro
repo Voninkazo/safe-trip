@@ -1,0 +1,54 @@
+---
+import Layout from "../../../../layout/Layout.astro";
+---
+
+<Layout title="Reset Password">
+  <div class="pt-16 py-8 max-w-xl mx-auto">
+    <h2 class="text-blue-800 text-2xl text-center font-sans font-meduim">
+      Reset your password
+    </h2>
+    <div id="block">
+      <p class="font-sans mt-8">
+        To reset your password, enter your email below and submit.<br /> An
+        email will be sent to you with instructions about how to complete the
+        process.
+      </p>
+      <form
+        action="/api/user/forgot-password"
+        method="post"
+        class="flex flex-col mt-8"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="New email"
+          class="max-w-lg h-14 rounded-md"
+        />
+        <button
+          type="submit"
+          class="mt-8 bg-blue-800 text-white font-bold h-14 px-11 rounded-md w-max"
+          >Reset Password</button
+        >
+      </form>
+    </div>
+    <div id="hidden" class="hidden mt-8 bg-green-100 max-w-max p-8 rounded-md">
+      <p class="text-green-800 text-lg">Please check your email inbox for a link to complete the reset.</p>
+    </div>
+  </div>
+</Layout>
+<script>
+  const modal = document.getElementById("hidden");
+  const formContainer = document.getElementById("block");
+  document.forms[0].addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formElement = e.target as HTMLFormElement;
+    const response = await fetch(formElement.action, {
+      method: formElement.method,
+      body: new FormData(formElement),
+    });
+    if (response.ok) {
+      modal?.classList.remove("hidden");
+      formContainer?.classList.add("hidden");
+    }
+  });
+</script>

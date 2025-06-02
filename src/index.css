@@ -1,0 +1,4 @@
+.p-CardForm {
+    display: flex;
+    flex-direction: column;
+}

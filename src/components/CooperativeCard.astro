@@ -1,0 +1,15 @@
+---
+import { color } from "../utils/color";
+const { cooperativeInfoName, index } = Astro.props;
+---
+
+<li>
+  <a
+    href={`/cooperatives/${cooperativeInfoName}`}
+    class={`bg-white text-${color(
+      index
+    )}-700 text-xl font-bold uppercase shadow-sm border rounded-md w-[151px] h-28 px-2 text-center flex items-center justify-center`}
+  >
+    {cooperativeInfoName}</a
+  >
+</li>

@@ -1,0 +1,21 @@
+---
+import { GET } from "../../api";
+import AdminBusDetails from "../../../components/AdminBusDetails";
+import AdminSidebar from "../../../components/AdminSideBar";
+import AdminLayout from "../../../layout/AdminLayout.astro";
+import type { BusType, User } from "../../../utils/type";
+const currentUrl = Astro.url.pathname;
+const response = await GET(Astro);
+const user: User | null = Astro.locals.user;
+const buses = await response.json();
+const urlParts = currentUrl.split("/");
+const busId = urlParts[urlParts.length - 1];
+const bus = buses.find((bus: BusType) => bus._id === busId);
+---
+
+<AdminLayout title="Admin Bus Details">
+  <AdminSidebar client:only="react" user={user || undefined} />
+  <div class="w-full basis-[78%] max-h-screen overflow-y-auto pr-10">
+    <AdminBusDetails client:only="react" bus={bus} />
+  </div>
+</AdminLayout>

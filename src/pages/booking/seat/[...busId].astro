@@ -1,0 +1,17 @@
+---
+import Layout from "../../../layout/Layout.astro";
+import BookedSeat from "../../../components/BookedSeat";
+import { GET } from "../../api";
+import type { BusType } from "../../../utils/type";
+
+const { busId } = Astro.params;
+const response = await GET(Astro);
+const buses = await response.json();
+const bus = buses.find((bus: BusType) => bus._id === busId);
+---
+
+<Layout>
+  <div class="flex flex-col items-center">
+    <BookedSeat bus={bus} client:only="react" />
+  </div>
+</Layout>

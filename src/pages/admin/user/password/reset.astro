@@ -1,0 +1,45 @@
+---
+import Layout from "../../../../layout/Layout.astro";
+const search = new URL(Astro.url).search;
+const params: URLSearchParams = new URLSearchParams(search.substring(1));
+const query: { [key: string]: string } = {};
+
+for (const [key, value] of params) {
+  query[key] = value;
+}
+
+---
+
+<Layout title="Reset Password">
+  <div class="pt-16 py-8 max-w-xl mx-auto">
+    <h2 class="text-blue-800 text-2xl font-sans font-meduim">
+      Reset your password
+    </h2>
+    <form
+      action="/api/user/reset-password"
+      method="post"
+      class="flex flex-col mt-8"
+    >
+      <input type="hidden" name="token" value={query.token} />
+      <label for="new-password">New password</label>
+      <input
+        type="password"
+        name="new-password"
+        placeholder="New password"
+        class="max-w-lg h-14 rounded-md"
+      />
+      <label for="confirm-passowrd" class="mt-6">Confirm password</label>
+      <input
+        type="password"
+        name="confirm-password"
+        placeholder="Confirm password"
+        class="max-w-lg h-14 rounded-md"
+      />
+      <button
+        type="submit"
+        class="mt-8 bg-blue-800 text-white font-bold h-14 px-11 rounded-md w-max"
+        >Reset Password</button
+      >
+    </form>
+  </div>
+</Layout>

@@ -1,0 +1,136 @@
+---
+import Faqs from "../../components/Faqs";
+import Layout from "../../layout/Layout.astro";
+import type { BusType } from "../../utils/type";
+import { GET } from "../api";
+import Rating from "../../components/Rating.astro";
+
+const { name } = Astro.params;
+const response = await GET(Astro);
+const buses = await response.json();
+const findBuses = buses?.filter(
+  (bus: BusType) => bus.cooperative.name === name
+);
+const networks = findBuses?.map((bus: BusType) => bus.destination);
+const cooperativeName = findBuses[0]?.cooperative?.name;
+const cooperativePhoneNum = findBuses[0]?.cooperative?.phoneNumber;
+---
+
+<Layout>
+  <div class="pt-8">
+    <h2 class="text-4xl pb-8">About {cooperativeName}</h2>
+    <p class="text-gray-700">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum vitae
+      ipsum totam voluptate voluptas quaerat natus voluptates neque ex, magnam
+      esse similique nesciunt fugiat quisquam vel, delectus reprehenderit quidem
+      asperiores.
+    </p>
+    <div>
+      <h3 class="uppercase font-sans font-meduim text-xl mt-10">
+        Contact {cooperativeName}
+      </h3>
+      <div class="mt-4">
+        Phone Number: <a
+          href={`tel:+261${cooperativePhoneNum}`}
+          class="font-meduim font-sans text-blue-800">{cooperativePhoneNum}</a
+        >
+      </div>
+      <p class="text-gray-700">
+        Email: <a
+          href="mailto:test@gmail.com"
+          class="font-meduim font-sans text-blue-800">test@gmial.com</a
+        >
+      </p>
+    </div>
+  </div>
+  <div>
+    <h3 class="font-sans font-meduim text-2xl mt-10 mb-4">
+      {name} Routes & Network
+    </h3>
+    <p class="text-gray-700">
+      {name}’s bus network features 1 bus routes that connect {networks.length}
+      cities serving {networks.length} stations. On average, {name}
+      performs about {findBuses.length} bus trips every day. The top cities to which
+      {name} offers the highest number of daily bus service include El Paso and Phoenix.
+    </p>
+  </div>
+  <div class="mb-10">
+    <h3 class="font-sans font-meduim text-2xl mt-10 mb-4">
+      Traveling with a Group on {name}
+    </h3>
+    <p class="text-gray-700">
+      Want to travel as a group on Greyhound? You can book up to five tickets in
+      one reservation on Wanderu. Simply add more travelers on the Trip Summary
+      page, and then type each passenger’s name on the checkout page. If you
+      choose to print the tickets at home, the email address on the reservation
+      will receive the tickets for each of the passengers traveling on the bus.
+      Alternatively, you could choose to pick up the tickets for your group at
+      the bus station by selecting the will-call option on the checkout page.
+    </p>
+  </div>
+  <div>
+    <h3 class="font-sans font-meduim text-2xl mt-10 mb-4">
+      {name} reviews from Happy Travel customers
+    </h3>
+    <p class="text-gray-700">
+      Overall review score for {name} (Based on 243 reviews)
+    </p>
+    <h4 class="font-meduim my-4">RATINGS (OUT OF 5)</h4>
+    <div>
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+          <tbody>
+            <tr class="bg-gray-100 border-b">
+              <th
+                scope="row"
+                class="px-6 py-4 font-bold text-gray-700 whitespace-nowrap"
+              >
+                Comfort
+              </th>
+              <td class="px-6 py-4 flex justify-end">
+                <Rating />
+              </td>
+            </tr>
+            <tr class="bg-white border-b">
+              <th
+                scope="row"
+                class="px-6 py-4 font-bold text-gray-700 whitespace-nowrap"
+              >
+                Timeliness
+              </th>
+              <td class="px-6 py-4 flex justify-end">
+                <Rating />
+              </td>
+            </tr>
+            <tr class="bg-gray-100">
+              <th
+                scope="row"
+                class="px-6 py-4 font-bold text-gray-700 whitespace-nowrap"
+              >
+                Staff
+              </th>
+              <td class="px-6 py-4 flex justify-end">
+                <Rating />
+              </td>
+            </tr>
+            <tr class="bg-white">
+              <th
+                scope="row"
+                class="px-6 py-4 font-bold text-gray-700 whitespace-nowrap"
+              >
+                Price
+              </th>
+              <td class="px-6 py-4 flex justify-end">
+                <Rating />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <h3 class="font-sans font-meduim text-2xl mt-10 mb-4">
+    {name} Bus Guide & FAQs
+  </h3>
+  <Faqs name={name ? name : ""} client:only="react" />
+</Layout>

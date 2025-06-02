@@ -1,0 +1,130 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/icons/logo.svg";
+import {
+  faTiktok,
+  faFacebook,
+  faInstagram,
+  faTwitter,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+---
+
+<footer class="bg-blue-900 text-white px-8 pt-8 pb-10 mt-10">
+  <div class="w-28 h-28 py-2 mb-8">
+    <Image src={logo} alt={"logo"} class={"w-full h-full"} />
+  </div>
+  <div
+    class="flex flex-col items-baseline md:flex-row gap-y-10 justify-center gap-x-16"
+  >
+    <nav>
+      <h2 class="font-bold mb-3 text-lg">TRAVEL</h2>
+      <ul>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Rental Cars</a>
+        </li>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Buses Tickets</a>
+        </li>
+      </ul>
+    </nav>
+    <nav>
+      <h2 class="font-bold mb-3 text-lg">ENGAGE</h2>
+      <ul>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Create Account</a>
+        </li>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Explore</a>
+        </li>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">New Routes</a>
+        </li>
+      </ul>
+    </nav>
+    <nav>
+      <h2 class="font-bold mb-3 text-lg">CUSTOMER SERVICE</h2>
+      <ul>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Contact Us</a>
+        </li>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Terms & Conditions</a>
+        </li>
+        <li class="text-base leading-7 hover:text-yellow-300">
+          <a href="#">Privacy Policy</a>
+        </li>
+        <li class="text-base leading-7">
+          Has registered your company? <a
+            href="/admin/user/signin"
+            class="font-bold underline hover:text-yellow-300">Login</a
+          > or <a
+            href="/admin/user/signup"
+            class="font-bold underline hover:text-yellow-300">Signup</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div
+    class="flex flex-col items-center md:flex-row gap-y-10 justify-between mt-10"
+  >
+    <p class="text-sm font-light">© 2024 Happy Travel. All rights reserved</p>
+    <nav>
+      <ul class="flex gap-x-3">
+        <li>
+          <a href="#"
+            ><FontAwesomeIcon
+              className="hover:text-red-700"
+              icon={faInstagram}
+              width={20}
+              height={20}
+            /></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><FontAwesomeIcon
+              className="hover:text-red-700"
+              icon={faFacebook}
+              width={20}
+              height={20}
+            /></a
+          >
+        </li>
+
+        <li>
+          <a href="#"
+            ><FontAwesomeIcon
+              className="hover:text-red-700"
+              icon={faTiktok}
+              width={20}
+              height={20}
+            /></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><FontAwesomeIcon
+              className="hover:text-red-700"
+              icon={faTwitter}
+              width={20}
+              height={20}
+            /></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><FontAwesomeIcon
+              className="hover:text-red-700"
+              icon={faLinkedin}
+              width={20}
+              height={20}
+            /></a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>
