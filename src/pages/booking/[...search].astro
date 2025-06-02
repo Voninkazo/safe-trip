@@ -1,0 +1,23 @@
+---
+import { GET } from "../api/search";
+import { departureLocations, destinationLocations } from "../../stores/bus";
+import BookingBus from "../../components/BookingBus";
+import SearchForm from "../../components/SearchForm";
+import Layout from "../../layout/Layout.astro";
+
+const response = await GET(Astro);
+const data = await response.json();
+const busDepartureLocations = departureLocations.get();
+const busDestinationLocations = destinationLocations.get();
+---
+
+<Layout>
+  <div>
+    <SearchForm
+      departures={busDepartureLocations}
+      destinations={busDestinationLocations}
+      client:only="react"
+    />
+    <BookingBus client:only="react" buses={data} />
+  </div>
+</Layout>

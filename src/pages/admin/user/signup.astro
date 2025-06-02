@@ -1,0 +1,10 @@
+---
+import Layout from "../../../layout/Layout.astro";
+import SignupForm from "../../../components/SignupForm";
+---
+
+<Layout title="Signup">
+  <div class="mt-10">
+    <SignupForm client:only="react" />
+  </div>
+</Layout>

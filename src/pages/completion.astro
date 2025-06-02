@@ -1,0 +1,56 @@
+---
+import Layout from "../layout/Layout.astro";
+const search = new URL(Astro.url).search;
+const params: URLSearchParams = new URLSearchParams(search.substring(1));
+const query: { [key: string]: string } = {};
+
+for (const [key, value] of params) {
+  query[key] = value;
+}
+const paymentId = query.payment_intent;
+const paymentStatus = query.redirect_status;
+---
+
+<Layout>
+  <div
+    class="bg-gray-800 max-w-xl mx-auto p-4 bg-opacity-70 mt-8 flex justify-center items-center"
+  >
+    <div
+      class="bg-white max-w-xl mx-auto shadow-2xl border-8 border-pink-600 p-8"
+    >
+      <h1 class="font-sans text-5xl font-meduim">Booking confirmed!</h1>
+      <p class="font-sans mt-8">
+        Thank you for trusting our services. Your booking has been added to your
+        account. You can check your <a
+          href="https://"
+          target="_blank"
+          class="text-blue-800">email</a
+        > to review your payment.
+      </p>
+      <div class="mt-6">
+        <div>
+          <a
+            href={`https://dashboard.stripe.com/test/payments/${
+              paymentId && paymentId
+            }`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Payment Status: <span class="uppercase text-blue-800"
+              >{paymentStatus && paymentStatus}</span
+            >
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-11">
+        <span
+          >Didn't get email? <a href="/" class="text-blue-900 ml-2 text-xl"
+            >No</a
+          >
+          <a href="#" class="text-blue-900 ml-2 text-xl">Yes</a></span
+        >
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,26 @@
+---
+import { GET } from "../api";
+import AccessDenied from "../../components/AccessDenied.astro";
+import AdminPanel from "../../components/AdminSideBar";
+import DashboardComponent from "../../components/DashboardComponent";
+import type { User, BusType } from "../../utils/type";
+
+const response = await GET(Astro);
+const buses = await response.json();
+const user: User | null = Astro.locals.user;
+const userBuses = buses.filter(
+  (bus: BusType) => bus.cooperative.name === user?.cooperativeName
+);
+---
+{
+  user !== null ? (
+    <>
+      <AdminPanel client:only="react" user={user} />
+      <div class="w-full basis-[78%] max-h-screen overflow-y-auto pr-10">
+        <DashboardComponent client:only="react" buses={userBuses} />
+      </div>
+    </>
+  ) : (
+    <AccessDenied />
+  )
+}

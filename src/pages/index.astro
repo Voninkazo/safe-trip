@@ -1,0 +1,89 @@
+---
+import { GET } from "../pages/api";
+import { type BusType } from "../utils/type";
+import { getDepartureLocations, getDestinations } from "../stores/bus";
+import CooperativeCard from "../components/CooperativeCard.astro";
+import Layout from "../layout/Layout.astro";
+import SearchForm from "../components/SearchForm.tsx";
+
+const response = await GET(Astro);
+const buses = await response.json();
+const cooperativesInfo = buses.map((bus: BusType) => bus.cooperative.name);
+const uniquecooperativesInfo = cooperativesInfo.filter(
+  (item: BusType, index: number) => cooperativesInfo.indexOf(item) === index
+);
+
+const departures = buses.map((bus: BusType) => bus.busDepartureLocation);
+const destinations = buses.map((bus: BusType) => bus.destination);
+getDepartureLocations(departures);
+getDestinations(destinations);
+---
+
+<Layout>
+  <div>
+    <SearchForm
+      client:only="react"
+      departures={departures}
+      destinations={destinations}
+    />
+    <h2 class="text-2xl font-bold text-center">Our partners include</h2>
+    <ul class="relative pt-10 flex justify-start gap-3 flex-wrap">
+      {
+        uniquecooperativesInfo.map(
+          (cooperativeInfoName: String, index: number) => (
+            <CooperativeCard
+              cooperativeInfoName={cooperativeInfoName}
+              index={index}
+            />
+          )
+        )
+      }
+    </ul>
+    <div class="mt-8">
+      <h3 class="text-lg font-bold mb-3">What is Happy Travel?</h3>
+      <p>
+        In publishing and graphic design, Lorem ipsum is a placeholder text
+        commonly used to demonstrate the visual form of a document or a typeface
+        without relying on meaningful content. Lorem ipsum may be used as a
+        placeholder before the final copy is available
+      </p>
+    </div>
+    <div class="mt-8">
+      <h3 class="text-lg font-bold mb-3">
+        Why use Happy Travel to book bus tickets?
+      </h3>
+      <p>
+        In publishing and graphic design, Lorem ipsum is a placeholder text
+        commonly used to demonstrate the visual form of a document or a typeface
+        without relying on meaningful content. Lorem ipsum may be used as a
+        placeholder before the final copy is available
+      </p>
+    </div>
+    <div class="mt-8">
+      <h3 class="text-lg font-bold mb-3">
+        How to find cheap bus tickets on Happy Travel
+      </h3>
+      <ol class="list-decimal list-inside">
+        <li>
+          Enter your departure point, destination and preferred travel dates.
+        </li>
+        <li>
+          Compare all bus schedules and prices that are available for your
+          route. Use Happy Travel filters and sorting options to find the bus
+          trip that best fits your needs.
+        </li>
+        <li>
+          Once you’ve selected a trip, you can add more people to your
+          reservation.
+        </li>
+        <li>
+          Fill out your personal and payment details to book your tickets. Your
+          tickets will be emailed to you (so you can print them out or show them
+          on your phone), and some carriers will let you pick them up at the
+          station.
+        </li>
+        <li>You are all set to travel!</li>
+      </ol>
+    </div>
+  </div>
+</Layout>

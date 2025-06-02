@@ -1,0 +1,47 @@
+---
+import AdminPanel from "../components/AdminSideBar";
+import Layout from "../layout/AdminLayout.astro";
+---
+
+<Layout title="confirm">
+  <AdminPanel client:only="react" />
+  <div class="basis-[80%]">
+    <p class="text-center mt-8 text-xl">
+      You have logged out successfully from your admin Account
+    </p>
+    <form
+      method="post"
+      action="/api/user/signin"
+      class="max-w-xl mx-auto mt-16"
+    >
+      <fieldset class="flex flex-col my-8">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+          class="h-14 rounded-md pl-4 border border-blue-900"
+          required
+        />
+      </fieldset>
+      <fieldset class="flex flex-col my-8">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          class="h-14 rounded-md pl-4 border border-blue-900"
+          required
+        />
+      </fieldset>
+      <div class="flex justify-between items-center">
+        <a href="/" class="underline">Back to home</a>
+        <button class="bg-blue-800 text-white font-bold h-14 px-11 rounded-md">
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</Layout>
